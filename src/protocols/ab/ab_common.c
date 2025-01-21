@@ -1100,7 +1100,8 @@ int check_read_request_status(ab_tag_p tag, ab_request_p request)
             tag->read_in_progress = 0;
             tag->offset = 0;
 
-            tag->req = NULL; 
+            rc_dec(tag->req);
+            tag->req = NULL;
         }
 
         pdebug(DEBUG_DETAIL, "Read not ready with status %s.", plc_tag_decode_error(rc));
@@ -1175,7 +1176,8 @@ int check_write_request_status(ab_tag_p tag, ab_request_p request)
             tag->read_in_progress = 0;
             tag->offset = 0;
 
-            tag->req = NULL; 
+            rc_dec(tag->req);
+            tag->req = NULL;
         }
 
         pdebug(DEBUG_DETAIL, "Write not ready with status %s.", plc_tag_decode_error(rc));
